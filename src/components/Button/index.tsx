@@ -7,7 +7,7 @@ export interface IBtnProps {
   children?: React.ReactNode;
   isDisabled?: boolean;
   size?: "small" | "medium" | "large";
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export default function Button({

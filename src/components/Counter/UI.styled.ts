@@ -2,8 +2,6 @@ import styled from "styled-components";
 
 const xsBreakpoint = "768px";
 
-export const Container = styled.div``;
-
 export const Article = styled.article`
   border: 1px solid white;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
