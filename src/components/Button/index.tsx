@@ -7,6 +7,7 @@ export interface IBtnProps {
   children?: React.ReactNode;
   isDisabled?: boolean;
   size?: "small" | "medium" | "large";
+  onClick: () => void;
 }
 
 export default function Button({
@@ -14,10 +15,11 @@ export default function Button({
   isDisabled,
   size,
   children,
+  onClick,
 }: IBtnProps) {
   if (varient === "secondary") {
     return (
-      <UI.Secondary size={size} disabled={isDisabled}>
+      <UI.Secondary onClick={onClick} size={size} disabled={isDisabled}>
         {children}
       </UI.Secondary>
     );
@@ -25,14 +27,14 @@ export default function Button({
 
   if (varient === "danger") {
     return (
-      <UI.Danger size={size} disabled={isDisabled}>
+      <UI.Danger onClick={onClick} size={size} disabled={isDisabled}>
         {children}
       </UI.Danger>
     );
   }
 
   return (
-    <UI.Primary size={size} disabled={isDisabled}>
+    <UI.Primary onClick={onClick} size={size} disabled={isDisabled}>
       {children}
     </UI.Primary>
   );
