@@ -8,6 +8,7 @@ interface IUser {
 
 function Counter() {
   const [count, setCount] = useState(0);
+  // NOTE: Best practice is to initialize state with the correct type when the default value is not provided
   const [user, setUser] = useState<IUser>({});
   const [userName, setUserName] = useState("");
   const [userAge, setUserAge] = useState("");
