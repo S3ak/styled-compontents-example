@@ -1,5 +1,8 @@
 import { useReducer } from "react";
 
+import Button from "../Button";
+import * as UI from "./UI.styled";
+
 type Product = {
   id: number;
   title: string;
@@ -129,42 +132,49 @@ function Cart() {
 
   return (
     <div>
-      {products.map((product) => (
-        <div key={product.id}>
-          <button
-            onClick={() => dispatch({ type: "addProduct", payload: product })}
-          >
-            Add {product.title}
-          </button>
-          <button
-            onClick={() =>
-              dispatch({ type: "removeProduct", payload: product })
-            }
-          >
-            Remove {product.title}
-          </button>
+      <UI.ProductList>
+        {products.map((product) => (
+          <div key={product.id}>
+            <Button
+              onClick={() => dispatch({ type: "addProduct", payload: product })}
+            >
+              Add {product.title}
+            </Button>
+            <Button
+              onClick={() =>
+                dispatch({ type: "removeProduct", payload: product })
+              }
+            >
+              Remove {product.title}
+            </Button>
+          </div>
+        ))}
+      </UI.ProductList>
+
+      <section>
+        <div>
+          <hr />
+          <Button onClick={() => dispatch({ type: "clearCart" })}>
+            Clear cart
+          </Button>
         </div>
-      ))}
-      <div>
+        <p>
+          Total: <strong>{state.total} KR</strong>
+        </p>
         <hr />
-        <button onClick={() => dispatch({ type: "clearCart" })}>
-          Clear cart
-        </button>
-      </div>
-      <p>
-        Total: <strong>{state.total} KR</strong>
-      </p>
-      <hr />
-      <ul>
+      </section>
+
+      <UI.List>
         <li>
           <strong>Quantity - Name - Price</strong>
         </li>
+
         {state.cart.map((product) => (
-          <li key={product.id}>
+          <UI.ListItem key={product.id}>
             {product.quantity} - {product.title} - {product.discountedPrice}
-          </li>
+          </UI.ListItem>
         ))}
-      </ul>
+      </UI.List>
     </div>
   );
 }

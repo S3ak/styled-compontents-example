@@ -2,39 +2,23 @@ import styled from "styled-components";
 
 export const Container = styled.div``;
 
-export const Article = styled.article`
-  border: 3px solid grey;
-  border-radius: 10px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  padding: 0.8rem;
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  flex-wrap: wrap;
-  max-width: 50vw;
-  min-width: 260px;
-`;
-
-export const Body = styled.p`
-  font-size: 0.8rem;
-`;
-
-export const Actions = styled.div`
-  flex: 1;
-`;
-
-export const Section = styled.section`
-  flex: 2;
+export const ProductList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  justify-content: flex-end;
+`;
 
-  &:first-child {
-    flex: 1;
-  }
+export const List = styled.ul`
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+`;
 
-  p {
-    margin: 0;
-  }
+export const ListItem = styled.li`
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+  max-width: 300px;
 `;

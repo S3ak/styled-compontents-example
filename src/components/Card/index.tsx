@@ -8,6 +8,7 @@ export interface ICardProps {
   children?: React.ReactNode;
   btnText?: string;
   bodyText?: string;
+  onPrimaryBtnClick: () => void;
 }
 
 const defaultText =
@@ -17,6 +18,7 @@ export default function Card({
   children,
   btnText = "Click Me",
   bodyText = defaultText,
+  onPrimaryBtnClick = () => {},
 }: ICardProps) {
   return (
     <UI.Article>
@@ -31,7 +33,9 @@ export default function Card({
           <UI.Image src="/dune1.jpg" />
         </UI.Body>
 
-        <Button varient="primary">{btnText}</Button>
+        <Button varient="primary" onClick={onPrimaryBtnClick}>
+          {btnText}
+        </Button>
       </UI.Section>
     </UI.Article>
   );
