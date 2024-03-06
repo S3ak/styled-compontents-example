@@ -20,14 +20,17 @@ declare module "products" {
     total: number;
   };
 
-  export type ProductWithQuantity = Product & { quantity: number };
+  export type ProductWithQuantity = Product & {
+    quantity: number;
+    discountedPrice: number;
+  };
 
   export type ACTIONTYPE =
-    | { type: "addProduct"; payload: Product }
-    | { type: "removeProduct"; payload: Product }
+    | { type: "addProduct"; payload: ProductWithQuantity }
+    | { type: "removeProduct"; payload: ProductWithQuantity }
     | { type: "clearCart" }
     | { type: "toggleVisibility" }
-    | { type: "removeMaxQuantity"; payload: Product };
+    | { type: "removeMaxQuantity"; payload: ProductWithQuantity };
 
   export type CartState = {
     cart: ProductWithQuantity[];

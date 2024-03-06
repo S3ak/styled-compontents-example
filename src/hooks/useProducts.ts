@@ -18,7 +18,18 @@ const useProducts = () => {
         // signal,
       });
       const { products: productList }: ProductData = await res.json();
-      setProducts(productList.map((product) => ({ ...product, quantity: 0 })));
+      setProducts(
+        productList.map((product) => ({
+          ...product,
+          quantity: 0,
+          discountedPrice: Number(
+            (
+              product.price -
+              product.price * (product.discountPercentage / 100)
+            ).toFixed(2)
+          ),
+        }))
+      );
     } catch (error) {
       if (error instanceof Error) {
         // Handle known errors

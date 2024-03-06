@@ -1,6 +1,6 @@
 import { CartContext, CartDispatchContext } from "@/context/cart-context";
 import { useContext, useMemo } from "react";
-import { Product, ACTIONTYPE } from "products";
+import { ACTIONTYPE, ProductWithQuantity } from "products";
 
 // Custom hook to use the cart context
 const useCart = () => {
@@ -21,15 +21,18 @@ const useCart = () => {
     dispatch({ type: "clearCart" });
   };
 
-  const addItemToCart = (payload: Product) => {
+  const addItemToCart = (payload: ProductWithQuantity) => {
     dispatch({ type: "addProduct", payload });
   };
 
-  const removeItemFromCart = (payload: Product) => {
+  const removeItemFromCart = (payload: ProductWithQuantity) => {
     dispatch({ type: "removeMaxQuantity", payload });
   };
 
-  const adjustQuantity = (payload: Product, kind: "increase" | "decrease") => {
+  const adjustQuantity = (
+    payload: ProductWithQuantity,
+    kind: "increase" | "decrease"
+  ) => {
     if (kind === "increase") {
       dispatch({ type: "addProduct", payload });
     } else {
@@ -47,7 +50,7 @@ const useCart = () => {
     resetCart,
     addItemToCart,
     removeItemFromCart,
-    total: (Math.round(context.total * 100) / 100).toFixed(2),
+    total: context.total.toFixed(2),
     count,
     isVisible: context.isVisible,
     toggleVisibility,

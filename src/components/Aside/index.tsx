@@ -33,7 +33,7 @@ export default function Aside() {
           {items.map((item) => (
             <UI.ProductItem key={item.id}>
               <p>
-                {item.title} - {item.quantity} x {item.price}
+                {item.title} - {item.quantity} x {item.discountedPrice}
               </p>
 
               <button onClick={() => adjustQuantity(item, "increase")}>

@@ -17,7 +17,7 @@ const HomePage = () => {
       {products.map((product) => (
         <div key={product.id}>
           <h2>{product.title}</h2>
-          <p>{product.price}</p>
+          <p>{product.discountedPrice}</p>
 
           <img src={product.thumbnail} alt={product.title} />
 
