@@ -1,5 +1,3 @@
-import React from "react";
-
 import * as UI from "./UI.styled";
 
 export interface IBtnProps {
