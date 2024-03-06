@@ -12,7 +12,8 @@ export type ACTIONTYPE =
   | { type: "addProduct"; payload: ProductWithoutQuantity }
   | { type: "removeProduct"; payload: ProductWithoutQuantity }
   | { type: "clearCart" }
-  | { type: "toggleVisibility" };
+  | { type: "toggleVisibility" }
+  | { type: "removeMaxQuantity"; payload: ProductWithoutQuantity };
 
 export type CartState = {
   cart: Product[];

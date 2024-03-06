@@ -52,10 +52,7 @@ function reducer(state: typeof initialState, action: ACTIONTYPE) {
       }
 
       // Set the new total so we don't have to keep calculating it
-      newTotal = cart.reduce((currentTotal, product) => {
-        currentTotal += product.discountedPrice * product.quantity;
-        return currentTotal;
-      }, 0);
+      newTotal = calcTotal(cart);
 
       return { ...state, cart: cart, total: newTotal };
 
@@ -88,10 +85,21 @@ function reducer(state: typeof initialState, action: ACTIONTYPE) {
         }
       }
       // Set the new total so we don't have to keep calculating it
-      newTotal = cart.reduce((currentTotal, product) => {
-        currentTotal += product.discountedPrice * product.quantity;
-        return currentTotal;
-      }, 0);
+      newTotal = calcTotal(cart);
+
+      return { ...state, cart: cart, total: newTotal };
+
+    case "removeMaxQuantity":
+      cart = [...state.cart];
+
+      // Check if the product is already in the cart
+      itemInCart = cart.find((item) => item.id === action.payload.id);
+
+      if (itemInCart) {
+        cart = cart.filter((item) => item.id !== action.payload.id);
+      }
+
+      newTotal = calcTotal(cart);
 
       return { ...state, cart: cart, total: newTotal };
 
@@ -105,4 +113,11 @@ function reducer(state: typeof initialState, action: ACTIONTYPE) {
     default:
       throw new Error();
   }
+}
+
+function calcTotal(cart: Product[]) {
+  return cart.reduce((currentTotal, product) => {
+    currentTotal += product.discountedPrice * product.quantity;
+    return currentTotal;
+  }, 0);
 }

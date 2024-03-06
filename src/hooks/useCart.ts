@@ -26,7 +26,15 @@ const useCart = () => {
   };
 
   const removeItemFromCart = (payload: Product) => {
-    dispatch({ type: "removeProduct", payload });
+    dispatch({ type: "removeMaxQuantity", payload });
+  };
+
+  const adjustQuantity = (payload: Product, kind: "increase" | "decrease") => {
+    if (kind === "increase") {
+      dispatch({ type: "addProduct", payload });
+    } else {
+      dispatch({ type: "removeProduct", payload });
+    }
   };
 
   const toggleVisibility = () => {
@@ -43,6 +51,7 @@ const useCart = () => {
     count,
     isVisible: context.isVisible,
     toggleVisibility,
+    adjustQuantity,
   };
 };
 

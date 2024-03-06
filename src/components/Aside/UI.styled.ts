@@ -18,6 +18,7 @@ export const Container = styled.aside<{ isVisible: boolean }>`
   transform: ${({ isVisible }) =>
     isVisible ? "translateX(0)" : "translateX(100%)"};
   background-color: black;
+  transition: transform 0.3s ease-in-out;
 
   section {
     flex: 1 1 auto;
@@ -42,4 +43,18 @@ export const ActionList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+`;
+
+export const ProductList = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-direction: column;
+`;
+
+export const ProductItem = styled.div`
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 0.8rem;
 `;

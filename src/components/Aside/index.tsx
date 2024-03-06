@@ -1,33 +1,56 @@
 import useCart from "@hooks/useCart";
 import { CiShoppingCart } from "react-icons/ci";
 import { IoIosCloseCircle } from "react-icons/io";
+import { FaTrash, FaPlusSquare, FaMinusSquare } from "react-icons/fa";
 
 import * as UI from "./UI.styled";
 // import Button from "../Button";
 
 export default function Aside() {
-  const { total, items, isVisible, toggleVisibility, resetCart } = useCart();
-
-  console.log("Aside rendered", isVisible);
+  const {
+    total,
+    items,
+    isVisible,
+    toggleVisibility,
+    resetCart,
+    adjustQuantity,
+    removeItemFromCart,
+  } = useCart();
 
   return (
     <UI.Container isVisible={isVisible}>
       <section>
         <CiShoppingCart />
         <h2>Cart</h2>
+
         <button onClick={toggleVisibility}>
           <IoIosCloseCircle />
         </button>
       </section>
 
       <section>
-        <ul>
+        <UI.ProductList>
           {items.map((item) => (
-            <li key={item.id}>
-              {item.quantity} | {item.title} - {item.quantity} x {item.price}
-            </li>
+            <UI.ProductItem key={item.id}>
+              <p>
+                {item.quantity} | {item.title} - {item.quantity} x {item.price}
+              </p>
+
+              <button onClick={() => adjustQuantity(item, "increase")}>
+                <FaPlusSquare />
+              </button>
+
+              <button onClick={() => adjustQuantity(item, "decrease")}>
+                <FaMinusSquare />
+              </button>
+
+              <button onClick={() => removeItemFromCart(item)}>
+                <FaTrash />
+                Remove
+              </button>
+            </UI.ProductItem>
           ))}
-        </ul>
+        </UI.ProductList>
       </section>
 
       <section>
@@ -37,6 +60,7 @@ export default function Aside() {
 
         <UI.ActionList>
           <button onClick={resetCart}>Clear Cart</button>
+
           <button>Pay</button>
         </UI.ActionList>
       </section>
