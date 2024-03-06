@@ -1,5 +1,3 @@
-import React from "react";
-
 import Dune2 from "./dune2.jpg";
 import * as UI from "./UI.styled";
 import Button from "../Button";
