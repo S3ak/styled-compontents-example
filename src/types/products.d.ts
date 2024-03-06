@@ -20,7 +20,7 @@ declare module "products" {
     total: number;
   };
 
-  export type ProductWithQuantity = Product & { quantity?: number };
+  export type ProductWithQuantity = Product & { quantity: number };
 
   export type ACTIONTYPE =
     | { type: "addProduct"; payload: Product }

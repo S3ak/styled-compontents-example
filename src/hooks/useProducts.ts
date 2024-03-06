@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { Product, ProductData } from "products";
+import { ProductData, ProductWithQuantity } from "products";
 
 // Custom hook to use the cart context
 const useProducts = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductWithQuantity[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState("");
@@ -18,7 +18,7 @@ const useProducts = () => {
         // signal,
       });
       const { products: productList }: ProductData = await res.json();
-      setProducts(productList);
+      setProducts(productList.map((product) => ({ ...product, quantity: 0 })));
     } catch (error) {
       if (error instanceof Error) {
         // Handle known errors

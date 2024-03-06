@@ -38,19 +38,13 @@ function reducer(state: typeof initialState, action: ACTIONTYPE) {
     // Adding a product
     case "addProduct":
       // Create a new cart so we don't mutate our state
-      cart = state.cart.map((item) => {
-        if (item.quantity) {
-          return { ...item };
-        } else {
-          return { ...item, quantity: 0 };
-        }
-      });
+      cart = [...state.cart];
 
       // Check if the product is already in the cart
       itemInCart = cart.find((item) => item.id === action.payload.id);
 
       // If the product is already in the cart we want to increase the quantity
-      if (itemInCart && itemInCart.quantity) {
+      if (itemInCart) {
         itemInCart.quantity += 1;
         // Else we want to add the product to the cart array
       } else {
@@ -71,14 +65,14 @@ function reducer(state: typeof initialState, action: ACTIONTYPE) {
       );
       // If the product index is not -1 then it exists
       if (productIndex !== -1) {
-        if (cart[productIndex]?.quantity ?? 0 > 1) {
+        if (cart[productIndex].quantity > 1) {
           // Remove 1 from quantity is quantity is higher than 1
           // We do not want to mutate cart so we recreate it
           cart = [
             ...cart.slice(0, productIndex),
             {
               ...cart[productIndex],
-              quantity: (cart[productIndex]?.quantity ?? 0) - 1,
+              quantity: cart[productIndex].quantity - 1,
             },
             ...cart.slice(productIndex + 1),
           ];
