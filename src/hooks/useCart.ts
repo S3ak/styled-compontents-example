@@ -1,6 +1,6 @@
 import { CartContext, CartDispatchContext } from "@/context/cart-context";
-import { ACTIONTYPE } from "@/types/products";
-import { useContext } from "react";
+import { ACTIONTYPE, Product } from "@/types/products";
+import { useContext, useMemo } from "react";
 
 // Custom hook to use the cart context
 const useCart = () => {
@@ -13,11 +13,37 @@ const useCart = () => {
     throw new Error("useCart must be used within a CartProvider");
   }
 
+  const count = useMemo(() => {
+    return context.cart.reduce((acc, item) => acc + item.quantity, 0);
+  }, [context.cart]);
+
   const resetCart = () => {
     dispatch({ type: "clearCart" });
   };
 
-  return { context, resetCart, total: context.total };
+  const addItemToCart = (payload: Product) => {
+    dispatch({ type: "addProduct", payload });
+  };
+
+  const removeItemFromCart = (payload: Product) => {
+    dispatch({ type: "removeProduct", payload });
+  };
+
+  const toggleVisibility = () => {
+    dispatch({ type: "toggleVisibility" });
+  };
+
+  return {
+    _context: context,
+    items: context.cart,
+    resetCart,
+    addItemToCart,
+    removeItemFromCart,
+    total: (Math.round(context.total * 100) / 100).toFixed(2),
+    count,
+    isVisible: context.isVisible,
+    toggleVisibility,
+  };
 };
 
 export default useCart;

@@ -11,4 +11,11 @@ export type ProductWithoutQuantity = Omit<Product, "quantity">;
 export type ACTIONTYPE =
   | { type: "addProduct"; payload: ProductWithoutQuantity }
   | { type: "removeProduct"; payload: ProductWithoutQuantity }
-  | { type: "clearCart" };
+  | { type: "clearCart" }
+  | { type: "toggleVisibility" };
+
+export type CartState = {
+  cart: Product[];
+  total: number;
+  isVisible: boolean;
+};

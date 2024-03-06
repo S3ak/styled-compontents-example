@@ -1,8 +1,12 @@
 import { createContext, useReducer } from "react";
 
-import { Product, ACTIONTYPE } from "@/types/products";
+import { Product, ACTIONTYPE, CartState } from "@/types/products";
 
-const initialState = { cart: [] as Product[], total: 0 };
+const initialState: CartState = {
+  cart: [] as Product[],
+  total: 0,
+  isVisible: false,
+};
 
 export const CartContext = createContext(initialState);
 export const CartDispatchContext =
@@ -93,7 +97,10 @@ function reducer(state: typeof initialState, action: ACTIONTYPE) {
 
     // Clearing a cart
     case "clearCart":
-      return { cart: [], total: 0 };
+      return { ...state, cart: [], total: 0 };
+
+    case "toggleVisibility":
+      return { ...state, isVisible: !state.isVisible };
 
     default:
       throw new Error();
