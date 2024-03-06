@@ -1,6 +1,6 @@
 import { CartContext, CartDispatchContext } from "@/context/cart-context";
-import { ACTIONTYPE, Product } from "@/types/products";
 import { useContext, useMemo } from "react";
+import { Product, ACTIONTYPE } from "products";
 
 // Custom hook to use the cart context
 const useCart = () => {

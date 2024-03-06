@@ -1,39 +1,51 @@
-import { Product } from "@/types/products";
-
-const products: Product[] = [
-  {
-    id: 0,
-    title: "Milk",
-    price: 19.99,
-    discountedPrice: 19.99,
-    quantity: 0,
-  },
-  {
-    id: 1,
-    title: "Bread",
-    price: 12.99,
-    discountedPrice: 12.99,
-    quantity: 0,
-  },
-  {
-    id: 2,
-    title: "Cheese",
-    price: 25.99,
-    discountedPrice: 25.99,
-    quantity: 0,
-  },
-  {
-    id: 3,
-    title: "Snus",
-    price: 299.99,
-    discountedPrice: 259.99,
-    quantity: 0,
-  },
-];
+import { useCallback, useEffect, useState } from "react";
+import { Product, ProductData } from "products";
 
 // Custom hook to use the cart context
 const useProducts = () => {
-  return [products];
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState("");
+  // const controller = new AbortController();
+  // const signal = controller.signal;
+
+  const fetchProducts = useCallback(async () => {
+    // const timeoutId = setTimeout(() => controller.abort(), 500);
+
+    try {
+      const res = await window.fetch("https://dummyjson.com/products", {
+        // signal,
+      });
+      const { products: productList }: ProductData = await res.json();
+      setProducts(productList);
+    } catch (error) {
+      if (error instanceof Error) {
+        // Handle known errors
+        setError(error.message);
+      } else if (typeof error === "string") {
+        // Handle unexpected errors
+        setError(error);
+      }
+
+      console.error(error);
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+      // clearTimeout(timeoutId);
+    }
+  }, []);
+
+  useEffect(() => {
+    // const reason = new DOMException("cleaning up", "AbortError");
+    fetchProducts();
+
+    return () => {
+      // controller.abort(reason);
+    };
+  }, [fetchProducts]);
+
+  return { products, isLoading, isError, error };
 };
 
 export default useProducts;

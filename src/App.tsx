@@ -8,7 +8,7 @@ import Aside from "@components/Aside";
 // Home page component
 const HomePage = () => {
   const { total, addItemToCart } = useCart();
-  const [products] = useProducts();
+  const { products } = useProducts();
 
   return (
     <Layout>
@@ -18,6 +18,8 @@ const HomePage = () => {
         <div key={product.id}>
           <h2>{product.title}</h2>
           <p>{product.price}</p>
+
+          <img src={product.thumbnail} alt={product.title} />
 
           <section>
             <button onClick={() => addItemToCart(product)}>Add to cart</button>

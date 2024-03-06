@@ -1,22 +1,37 @@
-export type Product = {
-  id: number;
-  title: string;
-  price: number;
-  discountedPrice: number;
-  quantity: number;
-};
+declare module "products" {
+  export interface Product {
+    brand: string;
+    category: string;
+    description: string;
+    discountPercentage: number;
+    id: number;
+    images: string[];
+    price: number;
+    rating: number;
+    stock: number;
+    thumbnail: string;
+    title: string;
+  }
 
-export type ProductWithoutQuantity = Omit<Product, "quantity">;
+  export type ProductData = {
+    limit: number;
+    products: Product[];
+    skip: number;
+    total: number;
+  };
 
-export type ACTIONTYPE =
-  | { type: "addProduct"; payload: ProductWithoutQuantity }
-  | { type: "removeProduct"; payload: ProductWithoutQuantity }
-  | { type: "clearCart" }
-  | { type: "toggleVisibility" }
-  | { type: "removeMaxQuantity"; payload: ProductWithoutQuantity };
+  export type ProductWithQuantity = Product & { quantity?: number };
 
-export type CartState = {
-  cart: Product[];
-  total: number;
-  isVisible: boolean;
-};
+  export type ACTIONTYPE =
+    | { type: "addProduct"; payload: Product }
+    | { type: "removeProduct"; payload: Product }
+    | { type: "clearCart" }
+    | { type: "toggleVisibility" }
+    | { type: "removeMaxQuantity"; payload: Product };
+
+  export type CartState = {
+    cart: ProductWithQuantity[];
+    total: number;
+    isVisible: boolean;
+  };
+}

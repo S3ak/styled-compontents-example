@@ -1,9 +1,9 @@
 import { createContext, useReducer } from "react";
 
-import { Product, ACTIONTYPE, CartState } from "@/types/products";
+import { ACTIONTYPE, CartState, ProductWithQuantity } from "products";
 
 const initialState: CartState = {
-  cart: [] as Product[],
+  cart: [] as ProductWithQuantity[],
   total: 0,
   isVisible: false,
 };
@@ -31,20 +31,26 @@ export default function CartContextProvider({
 function reducer(state: typeof initialState, action: ACTIONTYPE) {
   let productIndex: number;
   let newTotal: number;
-  let itemInCart: Product | undefined;
-  let cart: Product[];
+  let itemInCart: ProductWithQuantity | undefined;
+  let cart: ProductWithQuantity[];
 
   switch (action.type) {
     // Adding a product
     case "addProduct":
       // Create a new cart so we don't mutate our state
-      cart = [...state.cart];
+      cart = state.cart.map((item) => {
+        if (item.quantity) {
+          return { ...item };
+        } else {
+          return { ...item, quantity: 0 };
+        }
+      });
 
       // Check if the product is already in the cart
       itemInCart = cart.find((item) => item.id === action.payload.id);
 
       // If the product is already in the cart we want to increase the quantity
-      if (itemInCart) {
+      if (itemInCart && itemInCart.quantity) {
         itemInCart.quantity += 1;
         // Else we want to add the product to the cart array
       } else {
@@ -65,14 +71,14 @@ function reducer(state: typeof initialState, action: ACTIONTYPE) {
       );
       // If the product index is not -1 then it exists
       if (productIndex !== -1) {
-        if (cart[productIndex].quantity > 1) {
+        if (cart[productIndex]?.quantity ?? 0 > 1) {
           // Remove 1 from quantity is quantity is higher than 1
           // We do not want to mutate cart so we recreate it
           cart = [
             ...cart.slice(0, productIndex),
             {
               ...cart[productIndex],
-              quantity: cart[productIndex].quantity - 1,
+              quantity: (cart[productIndex]?.quantity ?? 0) - 1,
             },
             ...cart.slice(productIndex + 1),
           ];
@@ -115,9 +121,11 @@ function reducer(state: typeof initialState, action: ACTIONTYPE) {
   }
 }
 
-function calcTotal(cart: Product[]) {
+function calcTotal(cart: ProductWithQuantity[]) {
   return cart.reduce((currentTotal, product) => {
-    currentTotal += product.discountedPrice * product.quantity;
+    const discountedPrice =
+      product.price - product.price * (product.discountPercentage / 100);
+    currentTotal += discountedPrice * (product.quantity ?? 0);
     return currentTotal;
   }, 0);
 }
