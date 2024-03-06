@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div``;
 
 export const Article = styled.article`
+  position: fixed;
+  top: 10vh;
+  right: 5vw;
   border: 3px solid grey;
   border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
