@@ -3,15 +3,22 @@ import Button from "../Button";
 
 import * as UI from "./UI.styled";
 
-const initalState = {
+type StateType = {
+  theme: "light" | "dark";
+  toggleTheme: () => void;
+};
+
+type Theme = "light" | "dark";
+
+const initalState: StateType = {
   theme: "dark",
   toggleTheme: () => {},
 };
 
-const ThemeContext = createContext(initalState);
+const ThemeContext = createContext<StateType>(initalState);
 
 function App() {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState<Theme>("dark");
 
   function toggleTheme() {
     if (theme === "dark") {
@@ -53,8 +60,10 @@ function MyComponent() {
   );
 }
 
+// Using hooks. This is the preferred way to use context
 function MyComponentWithHooks() {
   const { theme, toggleTheme } = useContext(ThemeContext);
+
   return (
     <UI.Container color={theme}>
       <p>Using hoook the value is: {theme}</p>

@@ -6,12 +6,12 @@ import useCart from "@/hooks/useCart";
 
 // Home page component
 const HomePage = () => {
-  const { total } = useCart();
+  const { total, resetCart } = useCart();
 
   return (
     <Layout>
       <strong>{total}</strong>
-      <Card onPrimaryBtnClick={() => console.log("clicked")} />
+      <Card onPrimaryBtnClick={() => resetCart()} />
     </Layout>
   );
 };

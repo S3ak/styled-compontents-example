@@ -3,7 +3,7 @@ import { FiAlertCircle } from "react-icons/fi";
 import { IoIosCloseCircle } from "react-icons/io";
 
 import * as UI from "./UI.styled";
-import Button from "../Button";
+import Button from "@components/Button";
 
 export interface IToastProps {
   children?: React.ReactNode;
