@@ -1,18 +1,11 @@
-This project demostrates using styled-components in storybook.
+# Ecommerce Example | React + TypeScript + Vite + Styled Components + Storybook
+
+This is a exmaple of a ecommerce site using static data. This project demostrates using styled-components in storybook with Typescript. State is amanaged with vanilla react reducer and Context API.
 
 ## Resources
 
 [Deploy dashboard](https://vercel.com/seak/styled-compontents-example)
 [Production Deploy](https://styled-compontents-example.vercel.app/)
-
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 ## Expanding the ESLint configuration
 
