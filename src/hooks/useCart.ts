@@ -44,13 +44,13 @@ const useCart = () => {
   return {
     _context: context,
     items: context.cart,
-    resetCart,
-    addItemToCart,
-    removeItemFromCart,
+    resetCart: resetCart,
+    addItemToCart: addItemToCart,
+    removeItemFromCart: removeItemFromCart,
     total: (Math.round(context.total * 100) / 100).toFixed(2),
-    count,
+    count: count,
     isVisible: context.isVisible,
-    toggleVisibility,
+    toggleVisibility: toggleVisibility,
     adjustQuantity,
   };
 };

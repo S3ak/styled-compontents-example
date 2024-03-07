@@ -41,11 +41,18 @@ function reducer(state: typeof initialState, action: ACTIONTYPE) {
       cart = [...state.cart];
 
       // Check if the product is already in the cart
-      itemInCart = cart.find((item) => item.id === action.payload.id);
+      productIndex = cart.findIndex((item) => item.id === action.payload.id);
 
       // If the product is already in the cart we want to increase the quantity
-      if (itemInCart) {
-        itemInCart.quantity += 1;
+      if (productIndex !== -1) {
+        cart = [
+          ...cart.slice(0, productIndex),
+          {
+            ...cart[productIndex],
+            quantity: cart[productIndex].quantity++,
+          },
+          ...cart.slice(productIndex + 1),
+        ];
         // Else we want to add the product to the cart array
       } else {
         cart = [...cart, { ...action.payload, quantity: 1 }];
@@ -72,7 +79,7 @@ function reducer(state: typeof initialState, action: ACTIONTYPE) {
             ...cart.slice(0, productIndex),
             {
               ...cart[productIndex],
-              quantity: cart[productIndex].quantity - 1,
+              quantity: cart[productIndex].quantity--,
             },
             ...cart.slice(productIndex + 1),
           ];
