@@ -23,7 +23,7 @@ export const Container = styled.aside<{ isVisible: boolean }>`
   section {
     flex: 1 1 auto;
     width: 100%;
-    max-width: 400px;
+    max-width: 600px;
     align-items: center;
 
     &:first-child {
@@ -48,6 +48,7 @@ export const ActionList = styled.div`
 export const ProductList = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 0.8rem;
   flex-direction: column;
 `;
@@ -57,4 +58,10 @@ export const ProductItem = styled.div`
   min-height: 48px;
   align-items: center;
   gap: 0.8rem;
+`;
+
+export const ProductTitle = styled.h4`
+  font-size: 1.2rem;
+  min-width: 200px;
+  text-align: left;
 `;

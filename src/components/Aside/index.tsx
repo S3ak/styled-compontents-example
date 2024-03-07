@@ -32,13 +32,15 @@ export default function Aside() {
         <UI.ProductList>
           {items.map((item) => (
             <UI.ProductItem key={item.id}>
-              <p>
-                {item.quantity} | {item.title} - {item.quantity} x {item.price}
-              </p>
+              <UI.ProductTitle>
+                <strong>{item.title}</strong> - {item.quantity} x {item.price}
+              </UI.ProductTitle>
 
               <button onClick={() => adjustQuantity(item, "increase")}>
                 <FaPlusSquare />
               </button>
+
+              <p>{(item.quantity * item.price).toFixed(2)}</p>
 
               <button onClick={() => adjustQuantity(item, "decrease")}>
                 <FaMinusSquare />
